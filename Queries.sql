@@ -168,6 +168,7 @@ commit;
 
 create index idx_titleid on title_akas(titleID);    
 create index idx_tconst on title_ratings(tconst);    
+create index idx_tisOriginalTitle on title_akas(isOriginalTitle);    
 
 SELECT 
     ta.title, tr.numVotes, tr.averageRating
@@ -227,6 +228,9 @@ SELECT @director;
 
 -- What was the ratio between the actor and actress, who were born between 1950 and 1999?
 
+CREATE INDEX idx_primaryProfession on name_basics(primaryProfession);
+CREATE INDEX idx_birthYear on name_basics(birthYear);
+
 SELECT 
     primaryName,
     birthYear,
@@ -250,6 +254,12 @@ WHERE
 
 
 -- How many movies were appeared after 2000? Where the duritaion was longer than 30 mins. and it was not adult movie!
+
+CREATE INDEX idx_isAdult on title_basics(isAdult);
+CREATE INDEX idx_runtimeMinutes on title_basics(runtimeMinutes);
+CREATE INDEX idx_startYear on title_basics(startYear);
+CREATE INDEX idx_titleType on title_basics(titleType);
+
 
 SELECT 
     primaryTitle, startyear
@@ -282,6 +292,7 @@ WHERE
 GROUP BY nb.primaryName
 ORDER BY COUNT(nb.primaryName) DESC
 limit 10;
+
 
 
 
